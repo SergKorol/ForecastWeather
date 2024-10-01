@@ -41,7 +41,7 @@ internal static class Program
             if (weatherData != null)
             {
                 var todayWeather = weatherData.Forecast.Forecastday[0];
-                var updatedContent = await GenerateWeatherReport(todayWeather, weatherData.Location, templateFilePath);
+                var updatedContent = await GenerateWeatherReport(todayWeather, weatherData.Current, weatherData.Location, templateFilePath);
 
                 if (outputFilePath != null) await File.WriteAllTextAsync(outputFilePath, updatedContent);
                 Console.WriteLine($"Weather report created at {outputFilePath}");
@@ -57,7 +57,7 @@ internal static class Program
         }
     }
 
-    private static async Task<string> GenerateWeatherReport(Forecastday todayWeather, Location location, string? templateFilePath)
+    private static async Task<string> GenerateWeatherReport(Forecastday todayWeather, Current current, Location location, string? templateFilePath)
     {
         var templateContent = await File.ReadAllTextAsync(templateFilePath);
         var weatherTableContent = GenerateHourlyWeatherTable(todayWeather.Hour);
@@ -67,8 +67,8 @@ internal static class Program
             .Replace("{{ Country }}", location.Country)
             .Replace("{{ TodayWeatherDate }}", todayWeather.Date.ToString("yyyy-MM-dd"))
             .Replace("{{ TodayWeatherIcon }}", $"https:{todayWeather.Day.Condition.Icon}")
-            .Replace("{{ TodayWeatherCondition }}", todayWeather.Day.Condition.Text)
-            .Replace("{{ TodayWeatherConditionIcon }}", $"https:{todayWeather.Day.Condition.Icon}")
+            .Replace("{{ TodayWeatherCondition }}", current.Condition.Text)
+            .Replace("{{ TodayWeatherConditionIcon }}", $"https:{current.Condition.Icon}")
             .Replace("{{ WeathersTable }}", weatherTableContent)
             .Replace("{{ WeatherUpdatedDateTime }}", DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss"));
 
