@@ -90,7 +90,7 @@ internal static class Program
         stringBuilder.AppendLine("<tr><th>Weather</th>");
         foreach (var hour in hourlyWeathers)
         {
-            stringBuilder.AppendLine($"<td><img src=\"{hour.Condition.Icon}\" alt=\"Weather Icon\"></td>");
+            stringBuilder.AppendLine($"<td><img src=\"https{hour.Condition.Icon}\" alt=\"Weather Icon\"></td>");
         }
         stringBuilder.AppendLine("</tr>");
 
