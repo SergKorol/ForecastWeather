@@ -66,9 +66,9 @@ internal static class Program
             .Replace("{{ City }}", location.Name)
             .Replace("{{ Country }}", location.Country)
             .Replace("{{ TodayWeatherDate }}", todayWeather.Date.ToString("yyyy-MM-dd"))
-            .Replace("{{ TodayWeatherIcon }}", todayWeather.Day.Condition.Icon)
+            .Replace("{{ TodayWeatherIcon }}", $"https{todayWeather.Day.Condition.Icon}")
             .Replace("{{ TodayWeatherCondition }}", todayWeather.Day.Condition.Text)
-            .Replace("{{ TodayWeatherConditionIcon }}", todayWeather.Day.Condition.Icon)
+            .Replace("{{ TodayWeatherConditionIcon }}", $"https{todayWeather.Day.Condition.Icon}")
             .Replace("{{ WeathersTable }}", weatherTableContent)
             .Replace("{{ UpdatedDateTime }}", DateTime.UtcNow.ToString("yyyy-MM-ddTHH:mm:ssZ"));
 
