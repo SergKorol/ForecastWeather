@@ -70,7 +70,7 @@ internal static class Program
             .Replace("{{ TodayWeatherCondition }}", todayWeather.Day.Condition.Text)
             .Replace("{{ TodayWeatherConditionIcon }}", $"https:{todayWeather.Day.Condition.Icon}")
             .Replace("{{ WeathersTable }}", weatherTableContent)
-            .Replace("{{ UpdatedDateTime }}", DateTime.UtcNow.ToString("yyyy-MM-ddTHH:mm:ssZ"));
+            .Replace("{{ UpdatedDateTime }}", DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss"));
 
         return updatedContent;
     }
