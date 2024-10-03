@@ -57,22 +57,27 @@ internal static class Program
         }
     }
 
-    private static async Task<string> GenerateWeatherReport(Forecastday todayWeather, Current current, Location location, string? templateFilePath)
+    private static async Task<string?> GenerateWeatherReport(Forecastday todayWeather, Current current, Location location, string? templateFilePath)
     {
-        var templateContent = await File.ReadAllTextAsync(templateFilePath);
-        var weatherTableContent = GenerateHourlyWeatherTable(todayWeather.Hour);
+        if (templateFilePath != null)
+        {
+            var templateContent = await File.ReadAllTextAsync(templateFilePath);
+            var weatherTableContent = GenerateHourlyWeatherTable(todayWeather.Hour);
 
-        var updatedContent = templateContent
-            .Replace("{{ City }}", location.Name)
-            .Replace("{{ Country }}", location.Country)
-            .Replace("{{ TodayWeatherDate }}", todayWeather.Date.ToString("yyyy-MM-dd"))
-            .Replace("{{ TodayWeatherIcon }}", $"https:{todayWeather.Day.Condition.Icon}")
-            .Replace("{{ TodayWeatherCondition }}", current.Condition.Text)
-            .Replace("{{ TodayWeatherConditionIcon }}", $"https:{current.Condition.Icon}")
-            .Replace("{{ WeathersTable }}", weatherTableContent)
-            .Replace("{{ WeatherUpdatedDateTime }}", DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss"));
+            var updatedContent = templateContent
+                .Replace("{{ City }}", location.Name)
+                .Replace("{{ Country }}", location.Country)
+                .Replace("{{ TodayWeatherDate }}", todayWeather.Date.ToString("yyyy-MM-dd"))
+                .Replace("{{ TodayWeatherIcon }}", $"https:{todayWeather.Day.Condition.Icon}")
+                .Replace("{{ TodayWeatherCondition }}", current.Condition?.Text)
+                .Replace("{{ TodayWeatherConditionIcon }}", $"https:{current.Condition?.Icon}")
+                .Replace("{{ WeathersTable }}", weatherTableContent)
+                .Replace("{{ WeatherUpdatedDateTime }}", DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss"));
 
-        return updatedContent;
+            return updatedContent;
+        }
+
+        return null;
     }
 
     private static string GenerateHourlyWeatherTable(Current[] hourlyWeathers)
@@ -83,21 +88,21 @@ internal static class Program
 
         foreach (var hour in hourlyWeathers)
         {
-            stringBuilder.AppendLine($"<td>{hour.Time.Split(' ')[1]}</td>");
+            stringBuilder.AppendLine($"<td>{hour.Time?.Split(' ')[1]}</td>");
         }
         stringBuilder.AppendLine("</tr>");
 
         stringBuilder.AppendLine("<tr><th>Weather</th>");
         foreach (var hour in hourlyWeathers)
         {
-            stringBuilder.AppendLine($"<td><img src=\"https:{hour.Condition.Icon}\" alt=\"Weather Icon\"></td>");
+            stringBuilder.AppendLine($"<td><img src=\"https:{hour.Condition?.Icon}\" alt=\"Weather Icon\"></td>");
         }
         stringBuilder.AppendLine("</tr>");
 
         stringBuilder.AppendLine("<tr><th>Condition</th>");
         foreach (var hour in hourlyWeathers)
         {
-            stringBuilder.AppendLine($"<td>{hour.Condition.Text}</td>");
+            stringBuilder.AppendLine($"<td>{hour.Condition?.Text}</td>");
         }
         stringBuilder.AppendLine("</tr>");
 
