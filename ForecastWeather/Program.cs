@@ -40,7 +40,7 @@ internal static class Program
 
             if (weatherData != null)
             {
-                var todayWeather = weatherData.Forecast.Forecastday[0];
+                var todayWeather = weatherData.Forecast.ForecastDay[0];
                 var updatedContent = await GenerateWeatherReport(todayWeather, weatherData.Current, weatherData.Location, templateFilePath);
 
                 if (outputFilePath != null) await File.WriteAllTextAsync(outputFilePath, updatedContent);

@@ -5,13 +5,13 @@ namespace ForecastWeather;
 public record WeatherApiResponse
 {
     [JsonPropertyName("location")]
-    public Location Location { get; set; }
+    public required Location Location { get; set; }
 
     [JsonPropertyName("current")]
-    public Current Current { get; set; }
+    public required Current Current { get; set; }
 
     [JsonPropertyName("forecast")]
-    public Forecast Forecast { get; set; }
+    public required Forecast Forecast { get; set; }
 }
 
 public record Current
@@ -128,10 +128,10 @@ public record Current
 public record Condition
 {
     [JsonPropertyName("text")]
-    public string Text { get; set; }
+    public required string Text { get; set; }
 
     [JsonPropertyName("icon")]
-    public string Icon { get; set; }
+    public required string Icon { get; set; }
 
     [JsonPropertyName("code")]
     public double Code { get; set; }
@@ -140,7 +140,7 @@ public record Condition
 public record Forecast
 {
     [JsonPropertyName("forecastday")]
-    public Forecastday[] Forecastday { get; set; }
+    public required Forecastday[] ForecastDay { get; set; }
 }
 
 public record Forecastday
@@ -152,31 +152,31 @@ public record Forecastday
     public double DateEpoch { get; set; }
 
     [JsonPropertyName("day")]
-    public Day Day { get; set; }
+    public required Day Day { get; set; }
 
     [JsonPropertyName("astro")]
-    public Astro Astro { get; set; }
+    public required Astro Astro { get; set; }
 
     [JsonPropertyName("hour")]
-    public Current[] Hour { get; set; }
+    public required Current[] Hour { get; set; }
 }
 
 public record Astro
 {
     [JsonPropertyName("sunrise")]
-    public string Sunrise { get; set; }
+    public required string Sunrise { get; set; }
 
     [JsonPropertyName("sunset")]
-    public string Sunset { get; set; }
+    public required string Sunset { get; set; }
 
     [JsonPropertyName("moonrise")]
-    public string Moonrise { get; set; }
+    public required string Moonrise { get; set; }
 
     [JsonPropertyName("moonset")]
-    public string Moonset { get; set; }
+    public required string Moonset { get; set; }
 
     [JsonPropertyName("moon_phase")]
-    public string MoonPhase { get; set; }
+    public required string MoonPhase { get; set; }
 
     [JsonPropertyName("moon_illumination")]
     public double MoonIllumination { get; set; }
@@ -245,7 +245,7 @@ public record Day
     public double DailyChanceOfSnow { get; set; }
 
     [JsonPropertyName("condition")]
-    public Condition Condition { get; set; }
+    public required Condition Condition { get; set; }
 
     [JsonPropertyName("uv")]
     public double Uv { get; set; }
@@ -254,13 +254,13 @@ public record Day
 public record Location
 {
     [JsonPropertyName("name")]
-    public string Name { get; set; }
+    public required string Name { get; set; }
 
     [JsonPropertyName("region")]
-    public string Region { get; set; }
+    public required string Region { get; set; }
 
     [JsonPropertyName("country")]
-    public string Country { get; set; }
+    public required string Country { get; set; }
 
     [JsonPropertyName("lat")]
     public double Lat { get; set; }
@@ -269,11 +269,11 @@ public record Location
     public double Lon { get; set; }
 
     [JsonPropertyName("tz_id")]
-    public string TzId { get; set; }
+    public required string TzId { get; set; }
 
     [JsonPropertyName("localtime_epoch")]
     public double LocaltimeEpoch { get; set; }
 
     [JsonPropertyName("localtime")]
-    public string Localtime { get; set; }
+    public required string Localtime { get; set; }
 }
