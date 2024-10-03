@@ -20,7 +20,7 @@ public record Current
     public double? LastUpdatedEpoch { get; set; }
 
     [JsonPropertyName("last_updated")]
-    public string LastUpdated { get; set; }
+    public string? LastUpdated { get; set; }
 
     [JsonPropertyName("temp_c")]
     public double TempC { get; set; }
@@ -32,7 +32,7 @@ public record Current
     public double IsDay { get; set; }
 
     [JsonPropertyName("condition")]
-    public Condition Condition { get; set; }
+    public Condition? Condition { get; set; }
 
     [JsonPropertyName("wind_mph")]
     public double WindMph { get; set; }
@@ -44,7 +44,7 @@ public record Current
     public double WindDegree { get; set; }
 
     [JsonPropertyName("wind_dir")]
-    public string WindDir { get; set; }
+    public string? WindDir { get; set; }
 
     [JsonPropertyName("pressure_mb")]
     public double PressureMb { get; set; }
@@ -107,7 +107,7 @@ public record Current
     public double? TimeEpoch { get; set; }
 
     [JsonPropertyName("time")]
-    public string Time { get; set; }
+    public string? Time { get; set; }
 
     [JsonPropertyName("snow_cm")]
     public double? SnowCm { get; set; }
